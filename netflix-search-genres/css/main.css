@@ -29,7 +29,7 @@ body {
 		min-height: 200px;
 
 	}
-		.main__search > h1 {
+		.main__search_title {
 			display: flex;
 			justify-content: center;
 			align-items: center;
@@ -37,8 +37,12 @@ body {
 			font-family: 'Montserrat', helvetica, sans serif;
 			font-size: 56px;
 			font-weight: 100;
-			color: #fff;		
+			color: #FAF5eF;		
 		}
+			.main__search_title-bold {
+				font-weight: 700;
+				color: #ff2222;		
+			}
 		.main__search > input {
 			width: 60%;
 			height: 60px;
@@ -74,17 +78,17 @@ body {
 			padding: 10px;
 			border-radius: 3px;	
 			cursor: pointer;
-			background-color: #FAF5eF; 
 			font-family: 'Montserrat', helvetica, 'sans serif';
 			font-weight: 400;
-			color: #493165;
-			
-			
+		}
+		.main__result-nonactive {
+		  /*when navigating through the items using the arrow keys:*/
+		  background-color: #FAF5eF; 
+		  color: #493165; 
 		}
 		.main__result-active {
 		  /*when navigating through the items using the arrow keys:*/
-		  /*background-color: #bfef99 !important; */
-		  background-color: #FDD734 !important; 
+		  background-color: #FDD734; 
 		  color: #ffffff; 
 		}
 			.main__result-fadein {
@@ -93,7 +97,8 @@ body {
 			}
 			.main__result div:hover {
 			  	/*when hovering an item:*/
-			    background-color: #bfef99; 
+			    background-color: #FDD734;
+			    color: #ffffff;  
 			    transition: all 80ms ease;
 			}
 			@keyframes FadeIn { 
@@ -106,7 +111,6 @@ body {
 				    transform: scale(1);
 				  }
 			}
-
 .txt-alg-center {
 	text-align: center;
 }

@@ -27,7 +27,6 @@ class Data {
   }
 
   storageData(data) {
-    var code, xtrctCode, xtrctNames, lngthSize; 
     var div = document.createElement('div');
     div.innerHTML = data;
     var tree = div.childNodes;
@@ -39,31 +38,64 @@ class Data {
 
         // get the content
         var text = tree[i].textContent;
-        
-        // check for "equal sign"
-        var equal = text.indexOf('=');
+        this.splitStr(text);
 
-        // check for code at the start
-        if(equal > 0){
-          lngthSize = text.length;
-          xtrctNames = text.substr((equal+1), lngthSize); 
-          xtrctNames = xtrctNames.trim()
-          xtrctCode = text.substr(0, equal);
-          code = parseInt(xtrctCode);
-
-          // if code is a Number, add it to the list
-          if(!isNaN(code)){
-            this.dataSet.push({
-                code: code,
-                name: xtrctNames
-            });
-          }//[/if]
-        }//[/if equal]
       }//[/if three.node]
     }//[/for]
     this.display();
   }//[/storage]
+
+  splitStr(text){
+    var code, xtrctCode, xtrctNames, lngthSize; 
+    // check for "equal sign"
+    var equal = text.indexOf('=');
+    // check for code at the start
+    if(equal > 0){
+      lngthSize = text.length;
+      xtrctNames = text.substr((equal+1), lngthSize); 
+      xtrctNames = xtrctNames.trim()
+      xtrctCode = text.substr(0, equal);
+      code = parseInt(xtrctCode);
+
+      //filtering/checking if is there 2 codes at the same string
+      xtrctNames = this.checkSubMistakesJson(xtrctNames);
+      
+      // if code is a Number, add it to the list
+      if(!isNaN(code)){
+        this.dataSet.push({
+            code: code,
+            name: xtrctNames
+        });
+      }//[/if]
+    }//[/if equal]
+  }
+
+  checkSubMistakesJson(xtrctNames) {
+    // check for "equal sign"
+    var equal = xtrctNames.indexOf('=');
+    if (equal > 0) {
+
+      var splitted = xtrctNames.split("\n");
+      
+      this.splitStr(splitted[1]);
+
+      //sending back the orginal text 
+      xtrctNames = splitted[0];
+    }
+    return xtrctNames;
+  }//[checkSubMistakesJson]
+
 }//[Data]
+
+
+  
+
+
+
+
+
+
+
 
 class App extends Data {
   
@@ -84,7 +116,7 @@ class App extends Data {
         var boxOpt_option = document.createElement("DIV");
         boxOpt_option.innerHTML += this.dataSet[i].name;
         boxOpt_option.id = this.dataSet[i].code;
-        boxOpt_option.classList.add('txt-alg-center');
+        boxOpt_option.classList.add('txt-alg-center', 'main__result-nonactive');
         boxOpt_option.addEventListener("click", function(e) {
           window.open(
             'http://www.netflix.com/browse/genre/'+this.id,
@@ -120,7 +152,7 @@ class App extends Data {
           var boxOpt_option = document.createElement("DIV");
           boxOpt_option.innerHTML += _this.dataSet[i].name;
           boxOpt_option.id = _this.dataSet[i].code;
-          boxOpt_option.classList.add('txt-alg-center');
+          boxOpt_option.classList.add('txt-alg-center', 'main__result-nonactive');
           boxOpt_option.addEventListener("click", function(e) {
              window.open(
               'http://www.netflix.com/browse/genre/'+this.id,
@@ -191,7 +223,7 @@ class App extends Data {
         
     });
   }
-  
+
   checkPosition( cntr, childCntr ){
     var qttPerRow = null;
     if(cntr && childCntr[0]) {
@@ -204,7 +236,7 @@ class App extends Data {
     return qttPerRow;   
   }
 
-  addActive(childCntr) {
+  addActive( childCntr ) {
     if (!childCntr) { return false; }
     if (this.focus !== -1) {
       /*remove the "active" class on all items:*/
@@ -223,7 +255,7 @@ class App extends Data {
     }
   }
 
-  removeActive(childCntr) {
+  removeActive( childCntr ) {
     /*a function to remove the "active" class from all autocomplete items:*/
     for (var i = 0; i < childCntr.length; i++) {
       childCntr[i].classList.remove("main__result-active");
