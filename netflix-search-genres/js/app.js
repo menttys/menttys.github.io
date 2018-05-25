@@ -1,5 +1,4 @@
 class Data {
-  
   constructor() {
     this.dataSet=[];
   } 
@@ -85,20 +84,9 @@ class Data {
     return xtrctNames;
   }//[checkSubMistakesJson]
 
-}//[Data]
-
-
-  
-
-
-
-
-
-
-
+}//[class Data]
 
 class App extends Data {
-  
   constructor(){
     super();
     this.input = document.getElementById('search'); 
@@ -186,7 +174,7 @@ class App extends Data {
         
         if ( childCntr.length > 0 ) {
           if (e.keyCode == 40) {
-            // DOWN
+            // ==>> KEY DOWN
             if (_this.focus > -1){
               _this.focus = _this.focus + (_this.multRows);  
             } else {
@@ -194,26 +182,43 @@ class App extends Data {
             }
             _this.addActive(childCntr);
           } else if (e.keyCode == 38) { 
-              // UP
+              // ==>> KEY UP
               if (_this.focus >= _this.multRows){
-                _this.focus = _this.focus - (_this.multRows);  
-              } else if(_this.focus == -1) {
+                _this.focus = _this.focus - (_this.multRows); 
+              } 
+              else if(_this.focus == 0) {
+                _this.focus--;
+                _this.input.focus();
+                _this.removeActive(childCntr);
+              }
+              else if(_this.focus == -1) {
               } 
               else {
-                _this.focus --;
+                _this.focus--;
               }
               _this.addActive(childCntr);
           } else if (e.keyCode == 37) { 
-              // RIGHT
-              _this.focus --;
+              // ==>> KEY LEFT
+              if(_this.focus == 0) {
+                _this.focus--;
+                _this.input.focus();
+                _this.removeActive(childCntr);
+              }
+              else if (_this.focus != -1) {
+                _this.focus--;
+              }
               
               _this.addActive(childCntr);
           } else if (e.keyCode == 39) { 
-              // LEFT
-              _this.focus ++;
-
+              // ==>> KEY RIGHT
+             
+              if (_this.focus != -1) {
+                _this.focus++;
+              }
               _this.addActive(childCntr);        
-          } else if (e.keyCode == 13) {
+          } 
+          //if enter is pressed it send to netflix with the genre code
+          else if (e.keyCode == 13) {
             window.open(
               'http://www.netflix.com/browse/genre/'+childCntr[_this.focus].id,
               '_blank'
@@ -269,7 +274,7 @@ class App extends Data {
   display(){
     this.search();   
   }
-}
+}//[class App]
 
 var inst = new App();
 inst.getData();
