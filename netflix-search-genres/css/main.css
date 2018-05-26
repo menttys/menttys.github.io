@@ -90,6 +90,18 @@ body {
 			cursor: pointer;
 			font-family: 'Montserrat', helvetica, 'sans serif';
 			font-weight: 400;
+			transition: all 500ms ease;
+		}
+		@media only screen and (max-width: 768px){
+			.main__result > div {
+				width: 130px; 	
+			}
+		}
+		@media only screen and (max-width: 380px){
+			.main__result > div {
+				width: 100px; 
+				margin: 8px;	
+			}
 		}
 		.main__result-nonactive {
 		  /*when navigating through the items using the arrow keys:*/
